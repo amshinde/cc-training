@@ -1,14 +1,14 @@
 === VPP + Clear Containers Lab
 
 1. Details on setting up a host system for Docker, Clear Containers and VPP
-can be seen at cc-training/vpp/vpp-host-setup.
+can be seen at cc-training/vpp/vpp-host-setup. =========================================
 
 For the purposes of the June Dev Lab, all of this has already been executed on
 your virtual system. It is here for informational purposes only.  The components
 installed and configured are: VPP from FD.io, Docker, Clear Containers 2.1 and
 the VPP CNM plugin.
 
-2. To start out, let's create a docker network using VPP and the CNM VPP Plugin:
+2. To start out, let's create a docker network using VPP and the CNM VPP Plugin: =======
 
 Take a look @ 00_create_vpp_network.sh.  This will restart VPP as well as the VPP
 plugin, remove the vpp_net network if it already exists, and then start up the docker
@@ -17,7 +17,7 @@ network vpp_net which we'll use to connect two Clear Containers.
 After running 00_create_vpp_network.sh, you should expect to see vpp and vpp_main running
 on your system, as well as docker network vpp_net being setup. 
 
-3. Start up two Clear Containers, making use of the vpp_net network:
+3. Start up two Clear Containers, making use of the vpp_net network: ====================
 
 Take a look @ 01_create_containers.sh.  This will start two Clear Containers with the
 egernst/network-testing-ubuntu image (the image should already be local on this VM, so no
@@ -41,7 +41,7 @@ you should see the relevant networking setup passed to QEMU:
 
 Verify that you can see the vhost-user socket that the plugin created at /tmp/v_*
 
-4.  Test connectivity between the Containers
+4.  Test connectivity between the Containers ===============================================
 
 Attach to hasvpp1:
 sudo docker attach hasvpp1
@@ -52,14 +52,19 @@ ip route
 ping 192.168.1.3
 
 While ping is running, lets detatch from the container.  Press ctl-p ctl-q to
-detatch while allowing container to container running
+detatch while allowing container to container running.
 
+Let's check VPP on the host:
+sudo vppctl show interf
 
+You should see statistics for the interfaces created.  Run it again and verify that
+it is in fact incrementing.
 
+There are a few network tools available on the container image. You can play with tcpdump
+in the Clear Container, as well as iperf.
 
+5.  Clean up ================================================================================
 
+After playing with the two containers (testing connectivity, adding more containers,
+removing containers, etc, clean up your setup by running 02_cleanup_containers.sh
 
- -
-
-
-let's restart vpp, and create:wq
