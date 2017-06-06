@@ -63,8 +63,31 @@ it is in fact incrementing.
 There are a few network tools available on the container image. You can play with tcpdump
 in the Clear Container, as well as iperf.
 
+5.  Take a trace in VPP: 
+
+Tracing is a great feature in VPP, especially to aid in understanding when packets are
+dropped.  Let's capture a trace:
+
+From the host machine:
+
+sudo vppctl
+> show run
+
+If you run "run" a couple of times, you should see some of the nodes incrementing (especially
+if you are generating more traffic, like using iperf). Let's add a trace for a single node,
+vhost-user-input:
+>trace add vhost-user-input 1
+> show run
+
+Now take a look at the trace (assuming you had generated some traffic):
+> show trace
+
+This will show you the chain through which a particular packet travels in VPP.
+
+
 5.  Clean up ================================================================================
 
 After playing with the two containers (testing connectivity, adding more containers,
-removing containers, etc, clean up your setup by running 02_cleanup_containers.sh
+removing containers, etc, clean up your setup by running:
+./02_cleanup_containers.sh
 
