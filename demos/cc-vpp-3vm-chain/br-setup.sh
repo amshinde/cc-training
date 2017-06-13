@@ -9,7 +9,7 @@ sudo docker rm $(sudo docker ps -a -q)
 # at closure...
 sudo rm /tmp/v_*
 
-# Create two Docker VPP Networks
+# Create two BR Networks
 sudo docker network create --subnet=192.168.1.0/24 --gateway=192.168.1.1 lxbr_1
 sudo docker network create --subnet=192.168.2.0/24 --gateway=192.168.2.1 lxbr_2
 
